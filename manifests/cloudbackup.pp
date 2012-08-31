@@ -1,4 +1,4 @@
-class cloudbackup($api_key){
+class cloudbackup($username, $api_key){
   class {'cloudbackup::install':}
   class {'cloudbackup::service':}
 }
@@ -16,15 +16,21 @@ class cloudbackup::install {
     require => Yumrepo['drivesrvr'],
     notify => Exec['driveclient --configure'],
   }
-  
+
+  # Not sure why, but it seems to always ask for permission to overwrite the bootstrap.json file first
+  # added a 'Y' to the parameters below
   exec {'driveclient --configure':
-    command => 'driveclient --configure',
+    command => "/usr/bin/printf '%s\n' Y ${cloudbackup::username} ${cloudbackup::api_key} | /usr/local/bin/driveclient --configure",
     refreshonly => true,
     require => Package['driveclient']
   }
-
+  
 }
 
 class cloudbackup::service {
-
+  service {'driveclient':
+    ensure => running,
+    enable => true,
+    require => Class['cloudbackup::install'],
+  }
 }
