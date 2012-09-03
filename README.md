@@ -27,4 +27,4 @@ The build should satisfy the following:
 
 The current status is: 
 
-[![Build Status](https://secure.travis-ci.org/[mrpatrick]/[puppet-cloudbackup].png)](http://travis-ci.org/[mrpatrick]/[puppet-cloudbackup])
+[![Build Status](https://secure.travis-ci.org/avatarnewyork/puppet-cloudbackup.png?branch=master)](http://travis-ci.org/avatarnewyork/puppet-cloudbackup)
