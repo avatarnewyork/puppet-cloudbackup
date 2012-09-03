@@ -18,3 +18,13 @@ username => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
 api_key  => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
 }
 ```
+
+### Build Status
+The build should satisfy the following:
+
+* puppet-lint tests
+* rspec tests defined under the rspec dir
+
+The current status is: 
+
+[![Build Status](https://secure.travis-ci.org/[mrpatrick]/[puppet-cloudbackup].png)](http://travis-ci.org/[mrpatrick]/[puppet-cloudbackup])
