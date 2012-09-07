@@ -28,29 +28,46 @@
         </ul>
       </header>
       <section>
-        <h3>About puppet-cloudbackup Module</h3>
+        <h1>puppet-cloudbackup</h1>
 
-<p>The Rackspace Cloud Backup module automates the installation of the driveclient (cloudbackup) agent on your Rackspace VM"</p>
+<p>Rackspace Cloud Backup Puppet Module</p>
 
-<h3>Module Installation</h3>
+<h2>About</h2>
+
+<p>This module was built in order to automate the install and management of the cloudbackup agent provided by Rackspace.  This module will install and bootstrap the driveclient agent and start the driveclient service.</p>
+
+<h2>Module Installation</h2>
+
 <ul>
 <li>Add the 'cloudbackup' folder into your module path</li>
+<li>Include the class and configure the relevant variables for your Rackspace Cloud Backup account:</li>
 <li>
-Include the class and configure the relevant variables for your Rackspace Cloud Backup account:
-username - your rackspace cloud username
+<strong>username</strong> - your rackspace cloud username</li>
+<li>
+<strong>api_key</strong> - found under Your Account &gt; API Access here: <a href="https://manage.rackspacecloud.com/APIAccess.do">https://manage.rackspacecloud.com/APIAccess.do</a>
 </li>
-<li>api_key - found under Your Account > API Access here: https://manage.rackspacecloud.com/APIAccess.do</li>
-</ul>
+</ul><h3>EXAMPLE</h3>
 
-<h3>Example</h3>
-<pre><code>
-class { 'cloudbackup':
-   username => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-   api_key  => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-}
-</code></pre>
+<div class="highlight"><pre><span class="nc">class</span> <span class="p">{</span> <span class="s1">'cloudbackup'</span><span class="p">:</span>
+  <span class="nt">username</span> <span class="p">=&gt;</span> <span class="s1">'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'</span><span class="p">,</span>
+  <span class="nt">api_key</span>  <span class="p">=&gt;</span> <span class="s1">'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
 
+<h3>Build Status</h3>
 
+<p>The build should satisfy the following:</p>
+
+<ul>
+<li>puppet-lint tests</li>
+<li>rspec tests defined under the rspec dir</li>
+</ul><p>The current status is: </p>
+
+<p><a href="http://travis-ci.org/avatarnewyork/puppet-cloudbackup"><img src="https://secure.travis-ci.org/avatarnewyork/puppet-cloudbackup.png?branch=master" alt="Build Status"></a></p>
+
+<h2>ToDo</h2>
+
+<p>Unfortunately there isn't an API available for CloudBackup so there isn't a whole lot more that can be done with this module.  Hopefully down the road they open up an API that will allow configuration, scheduling, restores, etc but for now that all must be done from the Rackspace Control Panel</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/avatarnewyork">avatarnewyork</a></p>
@@ -58,6 +75,16 @@ class { 'cloudbackup':
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-86949-53");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
