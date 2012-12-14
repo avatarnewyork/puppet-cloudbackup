@@ -20,38 +20,41 @@ class cloudbackup::install {
       require     => Package['driveclient']
     }
   } elsif $osfamily == "debian" {
-    $repo_key = "http://agentrepo.drivesrvr.com/debian/agentrepo.key"
+    $drivesrvr_repo_key = "http://agentrepo.drivesrvr.com/debian/agentrepo.key"
+    $drivesrvr_install_repo_key = "curl $drivesrvr_repo_key | apt-key add -"
+    $drivesrvr_install_repo_key_stop_condition = 'apt-key list | grep -c "Rackspace"'
+    $drivesrvr_repo_file_name = 'driveclient.list'
+    $drivesrvr_repo_path = "/etc/apt/sources.list.d/$drivesrvr_repo_file_name"
 
-    $install_repo_key = "curl $repo_key | apt-key add -"
-    $install_repo_key_stop_condition = 'apt-key list | grep -c "Rackspace"'
-    $repo_file_name = 'driveclient.list'
-    $repo_path = "/etc/apt/sources.list.d/$repo_file_name"
-
-    exec { 'driveclient run apt-update':
-      require     => File['driveclient-repo'],
-      before      => Package['driveclient'],
-      command     => 'apt-get update',
-      path        => '/usr/bin/',
-      subscribe   => File['driveclient-repo'],
-      refreshonly => true,
+    file { $drivesrvr_repo_path:
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      content => "deb [arch=amd64] http://agentrepo.drivesrvr.com/debian/ serveragent main",
+      mode    => '0644',
     }
 
     exec { 'driveclient-repo-key':
       path    => '/bin:/usr/bin',
-      command => $install_repo_key,
-      unless  => $install_repo_key_key_stop_condition,
+      command => $drivesrvr_install_repo_key,
+      require =>File[$drivesrvr_repo_path],
     }
 
-    file { 'driveclient-repo':
-      path    => $repo_path,
-      mode    => '0644',
-      source  => "puppet:///modules/driveclient/$repo_file_name",
-      require => Exec['driveclient-repo-key']
+    exec { 'driveclient-repo-key-in-list':
+      path    => '/bin:/usr/bin',
+      command => $drivesrvr_install_repo_key_stop_condition,
+      require => Exec['driveclient-repo-key'],
+    }
+
+    exec { 'driveclient-run-apt-update':
+      command     => 'apt-get update',
+      path        => '/usr/bin/',
+      require     => Exec['driveclient-repo-key-in-list'],
     }
 
     package { 'driveclient':
       ensure  => installed,
-      require => File['driveclient-repo'],
+      require => Exec['driveclient-run-apt-update'],
     }
 
   }
