@@ -16,7 +16,7 @@ class cloudbackup::install {
   exec {'driveclient --configure':
     command     => "/usr/bin/printf '%s\n' Y ${cloudbackup::username} ${cloudbackup::api_key} | /usr/local/bin/driveclient --configure",
     refreshonly => true,
-		unless			=> "test -f /etc/driveclient/bootstrap.json",
+		unless			=> "/usr/bin/test -f /etc/driveclient/bootstrap.json",
     require     => Package['driveclient']
   }
 }
