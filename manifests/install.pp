@@ -14,8 +14,6 @@ class cloudbackup::install {
   # file first added a 'Y' to the parameters below
   exec {'driveclient --configure':
     command     => "/usr/bin/printf '%s\n' ${cloudbackup::username} ${cloudbackup::api_key} | /usr/local/bin/driveclient --configure",
-    unless			=> "/bin/grep IsRegistered /etc/driveclient/bootstrap.json | /bin/grep -q true",
-		subscribe		=> Package['driveclient'],
-		refreshonly => true,		
+    unless			=> "/bin/grep IsRegistered /etc/driveclient/bootstrap.json | /bin/grep -q true",	
   }
 }
