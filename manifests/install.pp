@@ -6,7 +6,7 @@ class cloudbackup::install {
     descr    => 'drivesrvr'
   }
   package {'driveclient':
-    ensure  => latest,
+    ensure  => present,
     require => Yumrepo['drivesrvr'],
   }
   # Not sure why, but it seems to always ask for
