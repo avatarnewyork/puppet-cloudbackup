@@ -1,5 +1,5 @@
 name 'avatarnewyork-cloudbackup'
-version '0.0.3'
+version '0.0.4'
 summary 'Rackspace Cloud Backup module'
 description "The Rackspace Cloud Backup module automates the installation of the driveclient (cloudbackup) agent on your Rackspace VM"
 project_page "http://avatarnewyork.github.com/puppet-cloudbackup"
